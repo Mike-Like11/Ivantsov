@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.mikelike11.kinopoiskapp.databinding.FragmentFilmDetailsBinding
 import com.mikelike11.kinopoiskapp.screens.searchfilms.ViewModelFactory
+import com.mikelike11.kinopoiskapp.utils.DataState
 
 class FilmDetailsFragment : Fragment() {
 
@@ -41,16 +42,37 @@ class FilmDetailsFragment : Fragment() {
         fragmentFilmDetailsBinding = FragmentFilmDetailsBinding.inflate(inflater)
         val view = fragmentFilmDetailsBinding.root
         viewModel.film.observe(viewLifecycleOwner) {
-            Glide.with(this).load(it.posterUrl).into(fragmentFilmDetailsBinding.filmDetailPoster)
-            fragmentFilmDetailsBinding.apply {
-                filmDetailTitle.text = it.nameRu
-                filmDetailDescription.text = it.description
+            when (it) {
+                is DataState.Error -> {
+                    fragmentFilmDetailsBinding.detailError.visibility = View.VISIBLE
+                    fragmentFilmDetailsBinding.progressDialog.visibility = View.GONE
+                }
+                is DataState.Loading -> {
+                    fragmentFilmDetailsBinding.detailError.visibility = View.GONE
+                    fragmentFilmDetailsBinding.progressDialog.visibility = View.VISIBLE
+                }
+                is DataState.Success -> {
+                    fragmentFilmDetailsBinding.detailError.visibility = View.GONE
+                    fragmentFilmDetailsBinding.progressDialog.visibility = View.GONE
+                    Glide.with(this).load(it.data.posterUrl)
+                        .into(fragmentFilmDetailsBinding.filmDetailPoster)
+                    fragmentFilmDetailsBinding.apply {
+                        filmDetailTitle.text = it.data.nameRu
+                        filmDetailDescription.text = it.data.description
 
-                filmDetailGenres.text = SpannableStringBuilder().bold { append("Жанры: ") }
-                    .append(it.genres.map { it.genre }.joinToString(separator = ", "))
-                filmDetailCountries.text = SpannableStringBuilder().bold { append("Страны: ") }
-                    .append(it.countries.map { it.country }.joinToString(separator = ", "))
+                        filmDetailGenres.text = SpannableStringBuilder().bold { append("Жанры: ") }
+                            .append(it.data.genres.map { it.genre }.joinToString(separator = ", "))
+                        filmDetailCountries.text =
+                            SpannableStringBuilder().bold { append("Страны: ") }
+                                .append(it.data.countries.map { it.country }
+                                    .joinToString(separator = ", "))
+                    }
+                }
+
             }
+        }
+        fragmentFilmDetailsBinding.retryDetail.setOnClickListener {
+            viewModel.getFilmFullInfo(film)
         }
         val orientation = this.resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {

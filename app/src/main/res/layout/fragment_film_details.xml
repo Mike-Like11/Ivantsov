@@ -5,6 +5,39 @@
     android:layout_height="match_parent"
     tools:context=".screens.filmdetails.FilmDetailsFragment">
 
+    <ProgressBar
+        android:id="@+id/progressDialog"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="#0094FF" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/detail_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Произошла ошибка при загрузке данных, проверьте подключение к сети"
+            android:textAlignment="center"
+            android:textColor="@color/kinopoisk_blue"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/retry_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/kinopoisk_blue"
+            android:text="Повторить" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
