@@ -40,6 +40,6 @@ Android-приложение со списком фильмов и их опис
 <img width="300" src="https://user-images.githubusercontent.com/57439449/216814030-f47b77f8-4708-4273-8371-6a0859343e13.png"/>
 <img width="300" src="https://user-images.githubusercontent.com/57439449/216814025-7bea9648-c018-4176-905c-d6cdf61d1a26.png"/>
 <img width="300" src="https://user-images.githubusercontent.com/57439449/216814082-dac32cb8-cc89-4e8b-8625-f2071ba40bf6.png"/>
-<img width="300" src="ttps://user-images.githubusercontent.com/57439449/216814023-46e06d55-8cd3-4d67-889e-a28eb514f7a8.png"/>
+<img width="300" src="https://user-images.githubusercontent.com/57439449/216814023-46e06d55-8cd3-4d67-889e-a28eb514f7a8.png"/>
 
 
